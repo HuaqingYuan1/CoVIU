@@ -1,0 +1,17 @@
+model_id: ../models/llava-1.5-7b-hf
+vanilla_dir: ../models/LLaVA_Vanilla
+
+data_split_dir: ../data/baseline_data
+forget_split_ratio: 10
+
+save_dir: saved_model/forget10_ga
+
+batch_size: 1
+gradient_accumulation: true
+lr: 2.0e-5
+num_epochs: 1
+max_length: 384
+ans_only: true
+
+trainer: false
+

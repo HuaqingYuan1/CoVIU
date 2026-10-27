@@ -1,0 +1,27 @@
+model_id: ../models/llava-1.5-7b-hf
+vanilla_dir: ../models/LLaVA_Vanilla
+
+data_split_dir: ../data/baseline_data
+forget_split_ratio: 10
+seed: 42
+
+save_dir: saved_model/forget10_manifold
+
+batch_size: 1
+gradient_accumulation: True
+gradient_accumulation_steps: 4
+lr: 2.0e-5
+num_epochs: 2
+max_length: 384
+forget_alpha: 4.0
+ans_only: true
+
+trainer: false
+
+mask_dir: masks/forget10
+mask:
+  grad_mask_path: masks/forget10/mllmu_both_mask_weight_only.pt
+
+cuda_visible_devices: "0"
+
+

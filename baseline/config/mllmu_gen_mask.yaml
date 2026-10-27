@@ -1,0 +1,20 @@
+model_id: ../models/llava-1.5-7b-hf
+model_path: ../models/LLaVA_Vanilla
+
+data_root: ../data/baseline_data
+forget_ratio: 10
+full_set_parquet: ../data/mllmu-bench/Full_Set/train-00000-of-00001.parquet
+
+mask:
+  lr: 1.0e-5
+  threshold: 1
+  label: weight_only
+  save_both_mask: true
+
+dataloader:
+  batch_size: 4
+  shuffle: true
+
+output_dir: masks/forget10
+
+cuda_visible_devices: "0"

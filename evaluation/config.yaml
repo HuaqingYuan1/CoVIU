@@ -1,0 +1,46 @@
+# All paths below are relative to evaluation/, regardless of the calling directory.
+method: coviu
+
+model:
+  model_id: llava-hf/llava-1.5-7b-hf
+  base_model_path: ../models/LLaVA_Vanilla
+  processor_path: ../models/llava-1.5-7b-hf
+  merge_adapter: true
+
+data:
+  data_root: ../data/mllmu-bench
+  forget_ratio: 5
+
+eval:
+  seed: 42
+  splits: [forget, test, retain, real]
+
+runtime:
+  cuda_visible_devices: "0"
+
+output:
+  result_root: results
+
+# Existing training defaults; align ratios and training budgets for comparisons.
+profiles:
+  coviu:
+    adapter_path: ../coviu/results/token_counterfactual_gain_adapter_all_lora_hard_retain_17_all_lora_augmented
+    forget_ratio: 5
+  ga:
+    adapter_path: ../baseline/saved_model/forget10_ga
+    forget_ratio: 10
+  gadiff:
+    adapter_path: ../baseline/saved_model/forget10_ga_diff
+    forget_ratio: 10
+  npo:
+    adapter_path: ../baseline/saved_model/forget15_npo
+    forget_ratio: 15
+  manifold:
+    adapter_path: ../baseline/saved_model/forget10_manifold
+    forget_ratio: 10
+  viker:
+    adapter_path: ../baseline/saved_model/forget10_viker
+    forget_ratio: 10
+  base:
+    adapter_path: null
+    forget_ratio: 5

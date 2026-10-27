@@ -1,0 +1,24 @@
+model_id: ../models/llava-1.5-7b-hf
+vanilla_dir: ../models/LLaVA_Vanilla
+
+data_split_dir: ../data/baseline_data
+reference_image_dir: ../data/celeba/img_align_celeba
+forget_split_ratio: 10
+seed: 42
+
+save_dir: saved_model/forget10_viker
+
+batch_size: 2
+gradient_accumulation: false
+gradient_accumulation_steps: 1
+lr: 5.0e-6
+num_epochs: 1
+max_length: 384
+viker_lambda: 0.05
+viker_num_refs: 5
+ans_only: true
+language_only: true
+
+trainer: false
+
+cuda_visible_devices: "0"

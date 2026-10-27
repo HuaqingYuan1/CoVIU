@@ -1,0 +1,61 @@
+paths:
+  model_path: ../models/LLaVA_Vanilla
+  processor_path: ../models/llava-1.5-7b-hf
+  forget_parquet: ../data/baseline_data/forget_5/train-00000-of-00001.parquet
+  retain_parquet: ../data/baseline_data/retain_95/train-00000-of-00001.parquet
+  output: results/token_counterfactual_gain_all_lora_hard_retain_17_all_lora_augmented.json
+  save_adapter: results/token_counterfactual_gain_adapter_all_lora_hard_retain_17_all_lora_augmented
+data:
+  max_samples: 0
+  counterfactual_count: 4
+  forget_augmentations_per_image: 3
+  include_canonical_forget_image: true
+  seed: 42
+token_selection:
+  token_gain_threshold: 0.1
+  token_gain_quantile: 0.5
+  sensitive_token_min: 1
+  sensitive_token_max_fraction: 0.5
+  sensitive_span_expansion: content
+  tolerance: 0.1
+  under_suppression_weight: 1.0
+filter:
+  exclude_gender_questions_from_training: true
+  gender_question_patterns:
+  - \bgender\b
+  - \bsex\b
+  - \bmale\s+or\s+female\b
+  - \bfemale\s+or\s+male\b
+  - \bman\s+or\s+woman\b
+  - \bwoman\s+or\s+man\b
+training:
+  train_epochs: 2
+  train_steps: 0
+  learning_rate: 2.0e-05
+  retain_loss_weight: 0.45
+  retain_samples_per_step: 1
+  retain_sampling: hard_negative
+  retain_hard_negative_map: results/hard_negative_retain_map_clip_top20.json
+lora:
+  lora_module_scope: all
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.0
+  lora_target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+  - linear_1
+  - linear_2
+  - fc1
+  - fc2
+  - out_proj
+runtime:
+  cuda_visible_devices: '0'
+  dtype: float16
+  device_map: auto
+  local_files_only: true

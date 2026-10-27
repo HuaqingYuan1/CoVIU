@@ -1,0 +1,28 @@
+model_id: ../models/llava-1.5-7b-hf
+vanilla_dir: ../models/LLaVA_Vanilla
+oracle_model_id: ../models/LLaVA_Vanilla
+
+data_split_dir: ../data/baseline_data
+forget_split_ratio: 15
+forget_file: train-00000-of-00001.parquet
+seed: 42
+
+save_dir: saved_model/forget15_npo
+
+batch_size: 1
+gradient_accumulation: true
+gradient_accumulation_steps: 4
+lr: 2.0e-5
+beta: 0.4
+num_epochs: 2
+max_length: 384
+ans_only: true
+retain_weight: 1.0
+retain_fraction: 1.0
+retain_max_samples: 0
+retain_full_epoch: false
+retain_dynamic_sample: true
+
+trainer: false
+
+
